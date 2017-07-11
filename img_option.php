@@ -24,6 +24,7 @@
 		  * @param int $max_height 最大高度
 		  */
 		public function createScalingImg($imgsrc,$imgdst,$max_width,$max_height){
+			$this->_isExists($imgsrc);
 			list($this->_old_width,$this->_old_height,$type) = getimagesize($imgsrc);
 			$width_rate = $max_width/$this->_old_width;
 			$height_rate = $max_height/$this->_old_height;
@@ -43,7 +44,8 @@
 		  * @param int $height 高度
 		  */
 		public function createFixedImg($imgsrc,$imgdst,$width,$height){
-			list($this->_old_width,$this->_old_height,$type)=getimagesize($imgsrc); 
+			$this->_isExists($imgsrc);
+			list($this->_old_width,$this->_old_height,$type) = getimagesize($imgsrc); 
 			
 			$this->_new_width = $width; 
 			$this->_new_height =$height;
@@ -56,7 +58,8 @@
 		  * @param int $part 多少部分
 		  */
 		public function createMutilImg($imgsrc,$imgdst,$part){
-			list($this->_old_width,$this->_old_height,$type)=getimagesize($imgsrc); 
+			$this->_isExists($imgsrc);
+			list($this->_old_width,$this->_old_height,$type) = getimagesize($imgsrc); 
 			
 			$this->_new_width  = $this->_old_width; 
 			$this->_new_height = $this->_old_height/$part;
@@ -148,6 +151,13 @@
 		public function removeOldImg(){
 			//删除原图片
 			unlink($this->_old_img_path);
+		}
+		
+		private function _isExists($imgsrc){
+			if(!file_exists($imgsrc)){
+				echo "imgsrc is not found\n";
+				exit;
+			}
 		}
 	}
 	
