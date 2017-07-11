@@ -24,7 +24,7 @@
 		  * @param int $max_height 最大高度
 		  */
 		public function createScalingImg($imgsrc,$imgdst,$max_width,$max_height){
-			$this->_isExists($imgsrc);
+			$this->isExists($imgsrc);
 			list($this->_old_width,$this->_old_height,$type) = getimagesize($imgsrc);
 			$width_rate = $max_width/$this->_old_width;
 			$height_rate = $max_height/$this->_old_height;
@@ -44,7 +44,7 @@
 		  * @param int $height 高度
 		  */
 		public function createFixedImg($imgsrc,$imgdst,$width,$height){
-			$this->_isExists($imgsrc);
+			$this->isExists($imgsrc);
 			list($this->_old_width,$this->_old_height,$type) = getimagesize($imgsrc); 
 			
 			$this->_new_width = $width; 
@@ -58,7 +58,7 @@
 		  * @param int $part 多少部分
 		  */
 		public function createMutilImg($imgsrc,$imgdst,$part){
-			$this->_isExists($imgsrc);
+			$this->isExists($imgsrc);
 			list($this->_old_width,$this->_old_height,$type) = getimagesize($imgsrc); 
 			
 			$this->_new_width  = $this->_old_width; 
@@ -153,7 +153,7 @@
 			unlink($this->_old_img_path);
 		}
 		
-		private function _isExists($imgsrc){
+		private function isExists($imgsrc){
 			if(!file_exists($imgsrc)){
 				echo "imgsrc is not found\n";
 				exit;
@@ -171,6 +171,6 @@
 	$img_op->createMutilImg('./share.gif',"./share_mutli.gif",4);
 	echo "create ok!\n";
 	//删除原图片
-	$img_op->removeOldImg();
+	//$img_op->removeOldImg();
 	echo "remove ok!\n";
 ?>
